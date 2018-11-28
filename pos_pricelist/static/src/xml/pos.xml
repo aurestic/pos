@@ -7,7 +7,7 @@
                 <t t-if="!product.to_weight">
                     <span class="price-tag">
                         <t t-if="widget.display_price_with_taxes">
-                            <t t-esc="widget.format_currency(product.price_with_taxes,'Product Price')"/>
+                            <t t-esc="widget.format_currency(widget.get_product_price_with_taxes(product),'Product Price')"/>
                         </t>
                         <t t-if="!widget.display_price_with_taxes">
                             <t t-esc="widget.format_currency(product.price,'Product Price')"/>
@@ -17,7 +17,7 @@
                 <t t-if="product.to_weight">
                     <span class="price-tag">
                         <t t-if="widget.display_price_with_taxes">
-                            <t t-esc="widget.format_currency(product.price_with_taxes,'Product Price')+'/Kg'"/>
+                            <t t-esc="widget.format_currency(widget.get_product_price_with_taxes(product),'Product Price')+'/Kg'"/>
                         </t>
                         <t t-if="!widget.display_price_with_taxes">
                             <t t-esc="widget.format_currency(product.price,'Product Price')+'/Kg'"/>
