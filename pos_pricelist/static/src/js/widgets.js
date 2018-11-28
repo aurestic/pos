@@ -63,7 +63,20 @@ function pos_pricelist_widgets(instance, module) {
                 customer = order.get_client();
             }
             this.pos.pricelist_engine.update_products_ui(customer);
-        }
+        },
+        get_product_price_with_taxes: function (product) {
+            if (typeof product.price_with_taxes === 'undefined') {
+                var orderline = new openerp.point_of_sale.Orderline({}, {
+                    pos: this.pos,
+                    order: null,
+                    product: product,
+                    price: product.price
+                });
+                var prices = orderline.get_all_prices();
+                product.price_with_taxes = prices.priceWithTax;
+            }
+            return product.price_with_taxes;
+        },
     });
 
     module.PosBaseWidget.include({
