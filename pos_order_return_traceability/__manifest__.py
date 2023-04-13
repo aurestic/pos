@@ -9,8 +9,15 @@
     "website": "https://github.com/OCA/pos",
     "license": "AGPL-3",
     "category": "Point Of Sale",
-    "depends": ["pos_order_mgmt", "pos_order_return",],
-    "data": ["views/pos_templates.xml",],
-    "qweb": ["static/src/xml/pos.xml",],
+    "depends": [
+        "pos_order_mgmt",
+        "pos_order_return",
+    ],
+    "data": [
+        "views/pos_templates.xml",
+    ],
+    "qweb": [
+        "static/src/xml/pos.xml",
+    ],
     "installable": True,
 }

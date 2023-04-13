@@ -2,7 +2,7 @@
    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 */
 
-odoo.define("pos_order_return_traceability.widgets", function(require) {
+odoo.define("pos_order_return_traceability.widgets", function (require) {
     "use strict";
 
     var core = require("web.core");
@@ -13,7 +13,7 @@ odoo.define("pos_order_return_traceability.widgets", function(require) {
     var QWeb = core.qweb;
 
     screens.ActionpadWidget.include({
-        renderElement: function() {
+        renderElement: function () {
             var self = this;
             this._super();
 
@@ -21,7 +21,7 @@ odoo.define("pos_order_return_traceability.widgets", function(require) {
                 .click[0].handler;
             var button_pay = this.$(".pay");
             button_pay.off("click");
-            button_pay.click(function() {
+            button_pay.click(function () {
                 var order = self.pos.get_order();
                 if (self.check_return_order(order)) {
                     button_pay_click_handler();
@@ -29,7 +29,7 @@ odoo.define("pos_order_return_traceability.widgets", function(require) {
             });
         },
 
-        check_return_order: function(order) {
+        check_return_order: function (order) {
             var self = this;
             if (!order.returned_order_id) {
                 return true;
@@ -88,7 +88,7 @@ odoo.define("pos_order_return_traceability.widgets", function(require) {
     });
 
     order_mgmt_widgets.OrderListScreenWidget.include({
-        _prepare_product_options_from_orderline_data: function(order, line, action) {
+        _prepare_product_options_from_orderline_data: function (order, line, action) {
             var self = this;
             var ret = this._super(order, line, action);
 

@@ -7,14 +7,18 @@ from odoo import api, fields, models
 class PosOrder(models.Model):
     _inherit = "pos.order"
 
-    is_returnable = fields.Boolean(compute="_compute_is_returnable",)
+    is_returnable = fields.Boolean(
+        compute="_compute_is_returnable",
+    )
 
     def _compute_is_returnable(self):
         for order in self:
             order.is_returnable = (
                 order.amount_total >= 0
                 and sum(
-                    [l.max_returnable_qty(ignored_line_ids=[]) for l in order.lines]
+                    order.lines.mapped(
+                        lambda line: line.max_returnable_qty(ignored_line_ids=[])
+                    )
                 )
                 > 0
             )
