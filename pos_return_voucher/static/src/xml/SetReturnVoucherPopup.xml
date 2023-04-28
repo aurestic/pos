@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="SetReturnVoucherPopup" owl="1">
+        <div role="dialog" class="modal-dialog set-return-voucher-popup">
+            <div class="popup popup-text">
+                <header class="title">
+                    <t t-esc="props.title" />
+                </header>
+                <main class="full-content">
+                    <div class="subwindow-container">
+                        <section>
+                            <div t-if="state.id" class="pos-return-voucher-data">
+                                <div class="returnVoucherName">
+                                    Name: <t t-esc="state.name" />
+                                </div>
+                                <div class="returnVoucherMaxValidityDate">
+                                    Expire date: <t t-esc="state.max_validity_date" />
+                                </div>
+                                <div class="returnVoucherAmount">
+                                    Amount: <t t-esc="state.amount" />
+                                </div>
+                            </div>
+                        </section>
+                        <input
+                            t-model="state.name"
+                            t-ref="inputName"
+                            t-on-change="searchReturnVoucher"
+                            type="text"
+                            name="name"
+                        />
+                    </div>
+                </main>
+                <footer class="footer">
+                    <div class="button confirm" t-on-click="confirm">
+                        <t t-esc="props.confirmText" />
+                    </div>
+                    <div class="button cancel" t-on-click="cancel">
+                        <t t-esc="props.cancelText" />
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </t>
+
+</templates>
