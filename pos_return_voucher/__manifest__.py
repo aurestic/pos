@@ -11,7 +11,7 @@
     "website": "https://github.com/OCA/pos",
     "development_status": "Alpha",
     "license": "AGPL-3",
-    "depends": ["point_of_sale", "pos_order_mgmt"],
+    "depends": ["point_of_sale", "pos_order_mgmt", "stock"],
     "data": [
         "security/ir.model.access.csv",
         # "security/res_groups.xml",
@@ -19,11 +19,11 @@
         "views/pos_return_voucher.xml",
         "views/pos_order.xml",
         "views/pos_config.xml",
+        "views/pos_payment.xml",
         "views/pos_payment_method.xml",
     ],
     "qweb": [
         "static/src/xml/*.xml",
     ],
     "installable": True,
-    "post_init_hook": "post_init_hook",
 }

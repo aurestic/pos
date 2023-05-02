@@ -8,28 +8,35 @@
                     <t t-esc="props.title" />
                 </header>
                 <main class="full-content">
-                    <div class="subwindow-container">
-                        <section>
-                            <div t-if="state.id" class="pos-return-voucher-data">
-                                <div class="returnVoucherName">
-                                    Name: <t t-esc="state.name" />
-                                </div>
-                                <div class="returnVoucherMaxValidityDate">
-                                    Expire date: <t t-esc="state.max_validity_date" />
-                                </div>
-                                <div class="returnVoucherAmount">
-                                    Amount: <t t-esc="state.amount" />
-                                </div>
-                            </div>
-                        </section>
-                        <input
-                            t-model="state.name"
-                            t-ref="inputName"
-                            t-on-change="searchReturnVoucher"
-                            type="text"
-                            name="name"
-                        />
-                    </div>
+                    <table
+                        t-if="state.id"
+                        class="pos-return-voucher-data"
+                        style="margin: auto;width: 90%;"
+                    >
+                        <tr>
+                            <td>Reference</td>
+                            <td><t t-esc="state.pos_reference" /></td>
+                        </tr>
+                        <tr>
+                            <td>Expire date</td>
+                            <td><t
+                                    t-esc="datetime_to_str(state.max_validity_date)"
+                                /></td>
+                        </tr>
+                        <tr>
+                            <td>Amount</td>
+                            <td><t
+                                    t-esc="props.pos.format_currency(state.amount)"
+                                /></td>
+                        </tr>
+                    </table>
+                    <input
+                        t-model="state.name"
+                        t-ref="inputName"
+                        t-on-change="searchReturnVoucher"
+                        type="text"
+                        name="name"
+                    />
                 </main>
                 <footer class="footer">
                     <div class="button confirm" t-on-click="confirm">

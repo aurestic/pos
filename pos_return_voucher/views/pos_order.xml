@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='payment_ids']" position="after">
                 <separator string="Return voucher emitted" />
-                <field name="return_voucher_ids" />
+                <field name="emitted_return_voucher_ids" />
                 <separator string="Return voucher redeemed" />
                 <field name="redeemed_return_voucher_ids" />
             </xpath>

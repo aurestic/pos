@@ -4,14 +4,8 @@ from odoo import api, fields, models
 class PosReturnVoucher(models.Model):
     _name = "pos.return.voucher"
     _description = "POS return voucher"
+    _rec_name = "pos_reference"
 
-    name = fields.Char(
-        string="Return voucher Ref",
-        readonly=True,
-        required=True,
-        copy=False,
-        default="/",
-    )
     order_id = fields.Many2one(
         comodel_name="pos.order",
         string="Created from order",
@@ -20,6 +14,10 @@ class PosReturnVoucher(models.Model):
     )
     date_order = fields.Datetime(
         related="order_id.date_order",
+        readonly=True,
+    )
+    pos_reference = fields.Char(
+        related="order_id.pos_reference",
         readonly=True,
     )
     max_validity_date = fields.Datetime(
@@ -74,18 +72,11 @@ class PosReturnVoucher(models.Model):
             )
 
     def _compute_state(self):
+        now = fields.Datetime.now()
         for rec in self:
             state = "active"
             if rec.redeemed_order_id:
                 state = "done"
-            elif rec.date_order and rec.date_order > rec.max_validity_date:
+            elif now > rec.max_validity_date:
                 state = "expired"
             rec.state = state
-
-    @api.model
-    def create(self, values):
-        pos_order = self.env["pos.order"].browse(values.get("order_id"))
-        values[
-            "name"
-        ] = pos_order.session_id.config_id.return_voucher_sequence_id._next()
-        return super(PosReturnVoucher, self).create(values)

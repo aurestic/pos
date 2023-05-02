@@ -14,8 +14,8 @@
                     </div>
                     <group name="pos_return_fields">
                         <group>
-                            <field name="name" />
                             <field name="order_id" />
+                            <field name="pos_reference" />
                             <field name="date_order" />
                             <field name="max_validity_date" />
                         </group>
@@ -40,8 +40,8 @@
                 decoration-success="state == 'done'"
             >
                 <field name="state" invisible="1" />
-                <field name="name" />
                 <field name="order_id" />
+                <field name="pos_reference" />
                 <field name="max_validity_date" />
                 <field name="user_id" />
                 <field name="amount" />

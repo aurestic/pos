@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+
+    <t
+        t-name="OrderReceipt"
+        t-inherit="point_of_sale.OrderReceipt"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath
+            expr="//div[hasclass('after-footer')]//t[@t-foreach='receipt.paymentlines']"
+            position="before"
+        >
+            <div t-if="receipt.return_voucher" class="pos-payment-terminal-receipt">
+                <img
+                    alt="Barcode return voucher"
+                    t-att-src="'/report/barcode/Code128/' + receipt.name"
+                    style="width:100%;height:4rem"
+                />
+            </div>
+        </xpath>
+    </t>
+
+</templates>
