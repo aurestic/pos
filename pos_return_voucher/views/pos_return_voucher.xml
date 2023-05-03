@@ -22,8 +22,11 @@
                         <group>
                             <field name="user_id" />
                             <field name="amount" />
-                            <field name="redeemed_order_id" />
+                            <field name="reamining_amount" />
                         </group>
+                    </group>
+                    <group string="Redeemed Orders" name="redeemed_orders">
+                        <field name="redeemed_order_ids" nolabel="1" />
                     </group>
                 </sheet>
             </form>
@@ -35,6 +38,7 @@
         <field name="model">pos.return.voucher</field>
         <field name="arch" type="xml">
             <tree
+                create="0"
                 decoration-info="state == 'active'"
                 decoration-muted="state == 'expired'"
                 decoration-success="state == 'done'"
@@ -44,6 +48,7 @@
                 <field name="pos_reference" />
                 <field name="max_validity_date" />
                 <field name="user_id" />
+                <field name="reamining_amount" />
                 <field name="amount" />
             </tree>
         </field>

@@ -8,11 +8,15 @@ class PosOrder(models.Model):
         comodel_name="pos.return.voucher",
         inverse_name="order_id",
         string="Emitted return voucher",
+        readonly=True,
     )
-    redeemed_return_voucher_ids = fields.One2many(
+    redeemed_return_voucher_ids = fields.Many2many(
         comodel_name="pos.return.voucher",
-        inverse_name="redeemed_order_id",
+        relation="pos_order_return_voucher_rel",
+        column1="order_id",
+        column2="return_voucher_id",
         string="Redeemed return vouchers",
+        readonly=True,
     )
 
     def add_payment(self, data):
@@ -29,10 +33,8 @@ class PosOrder(models.Model):
                 }
             )
             data["emitted_return_voucher_id"] = return_voucher.id
-            self.emitted_return_voucher_ids |= PosReturnVoucher.browse(
-                data.get("redeemed_return_voucher_id", False)
-            ).exists()
-        elif payment_method.return_voucher and data.get("redeemed_return_voucher_id"):
+            self.emitted_return_voucher_ids |= return_voucher
+        elif payment_method.return_voucher:
             # redeemed
             self.redeemed_return_voucher_ids |= PosReturnVoucher.browse(
                 data.get("redeemed_return_voucher_id", False)

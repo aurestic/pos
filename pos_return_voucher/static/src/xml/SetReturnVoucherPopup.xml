@@ -25,9 +25,18 @@
                         </tr>
                         <tr>
                             <td>Amount</td>
-                            <td><t
-                                    t-esc="props.pos.format_currency(state.amount)"
-                                /></td>
+                            <td>
+                                <t t-if="state.reamining_amount &lt; state.amount">
+                                    <span style="text-decoration: line-through;">
+                                        <t
+                                            t-esc="props.pos.format_currency(state.amount)"
+                                        />
+                                    </span>
+                                </t>
+                                <span> <t
+                                        t-esc="props.pos.format_currency(state.reamining_amount)"
+                                    /></span>
+                            </td>
                         </tr>
                     </table>
                     <input

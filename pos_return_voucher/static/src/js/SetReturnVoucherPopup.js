@@ -14,6 +14,7 @@ odoo.define("pos_edit_order_line.SetReturnVoucherPopup", function (require) {
                 id: false,
                 pos_reference: "",
                 amount: 0.0,
+                reamining_amount: 0.0,
                 max_validity_date: false,
             });
             this.inputRef = useRef("inputName");
@@ -25,7 +26,8 @@ odoo.define("pos_edit_order_line.SetReturnVoucherPopup", function (require) {
             return {
                 id: this.state.id,
                 pos_reference: this.state.pos_reference,
-                amount: this.state.amount,
+                amount: this.state.reamining_amount,
+                reamining_amount: this.state.reamining_amount,
             };
         }
         async searchReturnVoucher(event) {
@@ -35,11 +37,13 @@ odoo.define("pos_edit_order_line.SetReturnVoucherPopup", function (require) {
                     id,
                     pos_reference,
                     amount,
+                    reamining_amount,
                     max_validity_date,
                 } = await this._getReturnVoucher(inputPosReference);
                 this.state.id = id || false;
                 this.state.pos_reference = pos_reference || "";
                 this.state.amount = amount || 0.0;
+                this.state.reamining_amount = reamining_amount || 0.0;
                 this.state.max_validity_date = max_validity_date || false;
             }
         }
@@ -52,7 +56,14 @@ odoo.define("pos_edit_order_line.SetReturnVoucherPopup", function (require) {
                 method: "search_read",
                 args: [
                     [["order_id.pos_reference", "=", pos_reference]],
-                    ["id", "pos_reference", "amount", "max_validity_date", "state"],
+                    [
+                        "id",
+                        "pos_reference",
+                        "amount",
+                        "reamining_amount",
+                        "max_validity_date",
+                        "state",
+                    ],
                 ],
             });
             framework.unblockUI();

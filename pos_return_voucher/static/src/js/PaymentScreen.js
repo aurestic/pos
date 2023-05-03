@@ -24,13 +24,11 @@ odoo.define("pos_return_voucher.ReturnVoucherScreen", function (require) {
                                 return !prevPaymentLines.find(item);
                             }
                         );
-                        if (
-                            newPaymentline.length === 1 &&
-                            id &&
-                            amount < newPaymentline[0].amount
-                        ) {
-                            newPaymentline[0].set_amount(amount);
+                        if (res && newPaymentline.length === 1) {
                             newPaymentline[0].set_redeemed_return_voucher(id);
+                            if (amount < newPaymentline[0].amount) {
+                                newPaymentline[0].set_amount(amount);
+                            }
                         }
                     }
                 } else {

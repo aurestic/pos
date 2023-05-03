@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from odoo.tools.float_utils import float_is_zero
 
 
 class PosReturnVoucher(models.Model):
@@ -32,10 +33,17 @@ class PosReturnVoucher(models.Model):
         default=lambda s: s.env.user,
     )
     amount = fields.Float(required=True, copy=False)
-    redeemed_order_id = fields.Many2one(
+    reamining_amount = fields.Float(
+        compute="_compute_reamining_amount",
+        store=True,
+        readonly=True,
+    )
+    redeemed_order_ids = fields.Many2many(
         comodel_name="pos.order",
+        relation="pos_order_return_voucher_rel",
+        column1="return_voucher_id",
+        column2="order_id",
         string="Redeemed on order",
-        index=True,
         readonly=True,
     )
     state = fields.Selection(
@@ -74,9 +82,22 @@ class PosReturnVoucher(models.Model):
     def _compute_state(self):
         now = fields.Datetime.now()
         for rec in self:
+            order = rec.order_id
             state = "active"
-            if rec.redeemed_order_id:
+            if float_is_zero(
+                rec.reamining_amount, precision_rounding=order.currency_id.rounding
+            ):
                 state = "done"
             elif now > rec.max_validity_date:
                 state = "expired"
             rec.state = state
+
+    @api.depends("amount", "redeemed_order_ids", "redeemed_order_ids.payment_ids")
+    def _compute_reamining_amount(self):
+        for rec in self:
+            return_voucher = rec.redeemed_order_ids.payment_ids.filtered(
+                lambda payment: (
+                    payment.payment_method_id.return_voucher and payment.amount > 0
+                )
+            )
+            rec.reamining_amount = rec.amount - sum(return_voucher.mapped("amount"))
