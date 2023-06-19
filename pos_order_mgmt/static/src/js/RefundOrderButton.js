@@ -4,13 +4,11 @@
 odoo.define("pos_order_mgmt.RefundOrderButton", function (require) {
     "use strict";
 
-    const core = require("web.core");
     const {useContext} = owl.hooks;
     const PosComponent = require("point_of_sale.PosComponent");
     const OrderManagementScreen = require("point_of_sale.OrderManagementScreen");
     const Registries = require("point_of_sale.Registries");
     const contexts = require("point_of_sale.PosContext");
-    const _t = core._t;
 
     class RefundOrderButton extends PosComponent {
         constructor() {
@@ -46,9 +44,6 @@ odoo.define("pos_order_mgmt.RefundOrderButton", function (require) {
 
             // Get order lines
             this._prepare_orderlines_from_order(order, refund_order);
-
-            // Get Name
-            order.name = _t("Refund ") + refund_order.uid;
 
             // Get to invoice
             order.set_to_invoice(refund_order.to_invoice);
