@@ -20,48 +20,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
 
-/*  ********* Variant Selector PopUp  ************************************** */
-.pos .modal-dialog .popup-select-variant {
-    margin-left: 0;
-    margin-top: 0;
-    left: 5%;
-    width: 90%;
-    top: 5%;
-    height: 85%;
-}
-
-.pos .modal-dialog .popup-select-variant .variant-title {
-    height: 8%;
-}
-
-.pos .modal-dialog .popup-select-variant .variant-title #variant-popup-cancel {
-    margin: -10px 3px 3px 3px;
-}
-
-.pos .modal-dialog .popup-select-variant .container-attribute-list {
-    width: 100%;
-    height: 40%;
-    overflow: hidden;
-    overflow-y: auto;
-    border-bottom: 1px dashed #444;
-    -webkit-overflow-scrolling: touch;
-}
-
-.pos .modal-dialog .popup-select-variant .container-variant-list {
-    width: 100%;
-    height: 50%;
-    overflow: hidden;
-    overflow-y: auto;
-
-    -webkit-overflow-scrolling: touch;
-}
-
-.pos .variant-list {
-    padding: 10px;
-    text-align: left;
-    -webkit-transform: translate3d(0, 0, 0);
-}
-
 /*  ********* Attribut Display  ******************************************** */
 .pos .attribute {
     position: relative;
@@ -204,10 +162,6 @@
         rgba(255, 255, 255, 1),
         rgba(255, 255, 255, 1)
     );
-    /* troublesome in latest webkit
-    background:         linear-gradient(-90deg,rgba(255,255,255,0),rgba(255,255,255,1), rgba(255,255,255,1));
-    */
-    /*background:#FFF;*/
     padding: 3px;
     padding-top: 15px;
 }
@@ -219,17 +173,3 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
-
-/*.pos .variant-list-scroller{*/
-/*    -webkit-box-sizing: border-box;*/
-/*       -moz-box-sizing: border-box;*/
-/*        -ms-box-sizing: border-box;*/
-/*            box-sizing: border-box;*/
-/*    width:50%;*/
-/*    height:50%;*/
-/*    overflow: hidden;*/
-/*    overflow-y: auto;*/
-/*    -webkit-overflow-scrolling: touch;*/
-/*    -webkit-transform: translate3d(0,0,0);*/
-
-/*}*/
